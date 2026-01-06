@@ -1,10 +1,10 @@
 import shutil
 from pathlib import Path
-from .paths import BASE_DIR
+from .paths import get_base_dir
 from .resolver import collect_clean_targets
 
-def guard_clean(obj: Path):
-    real_base = BASE_DIR.resolve()
+def guard_clean(obj: Path, base_dir: Path):
+    real_base = base_dir.resolve()
     real_obj = obj.resolve()
 
     if real_base not in real_obj.parents and real_obj != real_base:
@@ -16,8 +16,8 @@ def remove_obj(obj: Path):
     elif obj.is_dir():
         shutil.rmtree(obj)
 
-def run_clean(dry_run: bool = False):
-    targets = collect_clean_targets()
+def run_clean(base_dir: Path, dry_run: bool = False):
+    targets = collect_clean_targets(base_dir)
 
     if not targets:
         return []
@@ -27,7 +27,7 @@ def run_clean(dry_run: bool = False):
         if not obj.exists():
             continue
 
-        guard_clean(obj)
+        guard_clean(obj, base_dir)
 
         if not dry_run:
             remove_obj(obj)

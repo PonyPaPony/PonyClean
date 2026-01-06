@@ -1,6 +1,6 @@
 import tomllib
 from pathlib import Path
-from .paths import CLEAN_DIR, USER_DIR
+from .paths import get_clean_paths
 
 def load_toml_if_valid(path: Path) -> dict | None:
     if not path.exists() or path.stat().st_size == 0:
@@ -15,8 +15,10 @@ def load_toml_if_valid(path: Path) -> dict | None:
     return data if data else None
 
 
-def load_clean_config() -> dict:
-    if user := load_toml_if_valid(USER_DIR):
+def load_clean_config(base_dir: Path) -> dict:
+    clean_default, clean_user = get_clean_paths(base_dir)
+
+    if user := load_toml_if_valid(clean_user):
         return user
 
-    return load_toml_if_valid(CLEAN_DIR) or {}
+    return load_toml_if_valid(clean_default) or {}

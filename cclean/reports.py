@@ -1,9 +1,14 @@
-from .paths import BASE_DIR
+from pathlib import Path
 
-def print_report(cleaned, dry_run: bool):
+def print_report(cleaned: list[Path], base_dir: Path, dry_run: bool):
     if dry_run:
         print(f"[DRY-RUN] Would remove {len(cleaned)} items:")
         for obj in cleaned:
-            print(f"  - {obj.relative_to(BASE_DIR)}")
+            try:
+                rel = obj.relative_to(base_dir)
+            except ValueError:
+                # на всякий случай, но guard_clean не должен допустить
+                rel = obj
+            print(f"  - {rel}")
     else:
         print(f"Cleaned {len(cleaned)} items")

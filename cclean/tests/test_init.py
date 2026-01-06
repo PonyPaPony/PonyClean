@@ -1,38 +1,25 @@
-import cclean.init as init
+from cclean.init import ensure_config_files
+from cclean.paths import get_clean_paths
 
 
-def test_ensure_config_files_creates_files(tmp_path, monkeypatch):
-    data_dir = tmp_path / "data"
-    clean_default = data_dir / "clean_default.toml"
-    clean_user = data_dir / "clean_user.toml"
+def test_ensure_config_files_creates(tmp_path):
+    ensure_config_files(tmp_path)
 
-    monkeypatch.setattr(init, "CLEAN_DIR", clean_default)
-    monkeypatch.setattr(init, "USER_DIR", clean_user)
+    clean_default, clean_user = get_clean_paths(tmp_path)
 
-    init.ensure_config_files()
-
-    assert data_dir.exists()
     assert clean_default.exists()
     assert clean_user.exists()
-
-    content = clean_default.read_text(encoding="utf-8")
-    assert "files" in content
+    assert "files" in clean_default.read_text()
 
 
-def test_ensure_config_files_does_not_overwrite_existing(tmp_path, monkeypatch):
-    data_dir = tmp_path / "data"
-    data_dir.mkdir()
+def test_ensure_config_files_no_overwrite(tmp_path):
+    clean_default, clean_user = get_clean_paths(tmp_path)
 
-    clean_default = data_dir / "clean_default.toml"
-    clean_user = data_dir / "clean_user.toml"
+    clean_default.parent.mkdir(parents=True, exist_ok=True)
+    clean_default.write_text("keep")
+    clean_user.write_text("user")
 
-    clean_default.write_text("files = ['keep_me']\n", encoding="utf-8")
-    clean_user.write_text("do not touch", encoding="utf-8")
+    ensure_config_files(tmp_path)
 
-    monkeypatch.setattr(init, "CLEAN_DIR", clean_default)
-    monkeypatch.setattr(init, "USER_DIR", clean_user)
-
-    init.ensure_config_files()
-
-    assert clean_default.read_text(encoding="utf-8") == "files = ['keep_me']\n"
-    assert clean_user.read_text(encoding="utf-8") == "do not touch"
+    assert clean_default.read_text() == "keep"
+    assert clean_user.read_text() == "user"
