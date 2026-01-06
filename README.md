@@ -32,7 +32,7 @@ cd <repo>
 
 ## Запуск
 ```bash
-python cclean.py run
+cclean run
 ```
 
 ## Конфигурация
