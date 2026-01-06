@@ -1,12 +1,39 @@
 [project]
 name = "ponyclean"
-version = "0.1.0"
-description = "Simple project cleaner"
+version = "0.1.1"
+description = "Simple and safe CLI tool for cleaning project junk files"
 readme = "README.md"
+requires-python = ">=3.11"
 authors = [
   {name = "PonyPaPony"}
 ]
 license = {text = "MIT"}
+
+keywords = [
+  "cli",
+  "clean",
+  "cleanup",
+  "project",
+  "filesystem",
+  "developer-tools"
+]
+
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Topic :: Software Development :: Build Tools",
+  "Topic :: Utilities",
+]
+
+[project.urls]
+Homepage = "https://github.com/PonyPaPony/PonyClean"
+Repository = "https://github.com/PonyPaPony/PonyClean"
+Issues = "https://github.com/PonyPaPony/PonyClean/issues"
 
 [project.scripts]
 cclean = "cclean.main:main"

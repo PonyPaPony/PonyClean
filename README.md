@@ -23,16 +23,25 @@
 
 ## Установка
 
-Пока утилита предполагается для запуска из проекта:
+```text
+При первом запуске утилита создаст data/clean_default.toml и data/clean_user.toml
+в корне проекта (или в --root)
+```
 
 ```bash
-git clone <repo>
-cd <repo>
+pip install ponyclean
 ```
 
 ## Запуск
 ```bash
 cclean run
+```
+
+## Примеры
+```bash
+cclean run
+cclean run --root /path/to/project
+cclean run --dry-run
 ```
 
 ## Конфигурация
