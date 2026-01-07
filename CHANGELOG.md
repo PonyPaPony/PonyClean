@@ -7,6 +7,17 @@ and this project follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [0.2.1] - 2026-01-07
+
+### Fixed
+- Fixed configuration semantics: `clean.toml` is now the only source of clean rules
+- Removed incorrect file-based default config fallback
+
+### Changed
+- Refactored resolver logic for clarity and safety
+- Improved protection of critical directories (`venv`, `.git`, `.ponyclean`)
+---
+
 ## [0.2.0] – 2026-01-07
 
 ### Added

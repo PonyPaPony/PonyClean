@@ -32,8 +32,8 @@ def render_toml(data: dict) -> str:
     return "\n".join(lines)
 
 def init_config_files(base_dir: Path) -> bool:
-    clean_ignore, clean_rules = get_clean_paths(base_dir)
-    config_dir = clean_rules.parent
+    clean_path, ignore_path = get_clean_paths(base_dir)
+    config_dir = clean_path.parent
 
     created = False
 
@@ -41,16 +41,15 @@ def init_config_files(base_dir: Path) -> bool:
         config_dir.mkdir(parents=True)
         created = True
 
-    if not clean_rules.exists():
-        if not clean_rules.exists():
-            clean_rules.write_text(
-                render_toml(DEFAULT_RULES),
-                encoding="utf-8"
-            )
-            created = True
+    if not clean_path.exists():
+        clean_path.write_text(
+            render_toml(DEFAULT_RULES),
+            encoding="utf-8"
+        )
+        created = True
 
-    if not clean_ignore.exists():
-        clean_ignore.touch()
+    if not ignore_path.exists():
+        ignore_path.touch()
         created = True
 
     return created
