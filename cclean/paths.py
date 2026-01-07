@@ -5,6 +5,6 @@ def get_base_dir(root: str | None = None) -> Path:
 
 def get_clean_paths(base_dir: Path):
     return (
-        base_dir / "data/clean_default.toml",
-        base_dir / "data/clean_user.toml",
+        base_dir / ".ponyclean/ignore.toml",
+        base_dir / ".ponyclean/clean.toml",
     )

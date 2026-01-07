@@ -1,6 +1,6 @@
 [project]
 name = "ponyclean"
-version = "0.1.1"
+version = "0.2.0"
 description = "Simple and safe CLI tool for cleaning project junk files"
 readme = "README.md"
 requires-python = ">=3.11"

@@ -1,25 +1,56 @@
 from pathlib import Path
 from .paths import get_clean_paths
 
-DEFAULT_CONTENT = """\
-files = [
-    "__pycache__",
-    ".pytest_cache",
-    ".mypy_cache",
-    "*.pyc",
-    ".coverage",
-    ".ponyinit",
-    ".benchmarks",
-]
-"""
+DEFAULT_RULES = {
+    "files": [
+        "__pycache__",
+        ".pytest_cache",
+        ".mypy_cache",
+        "*.pyc",
+        ".coverage",
+        ".ponyinit",
+        ".benchmarks",
+    ]
+}
 
-def ensure_config_files(base_dir: Path):
-    clean_default, clean_user = get_clean_paths(base_dir)
-    data_dir = clean_default.parent
-    data_dir.mkdir(parents=True, exist_ok=True)
+PROTECTED_DIRS = {
+    "venv",
+    ".venv",
+    ".git",
+    ".ponyclean",
+    "__pypackages__",
+}
 
-    if not clean_default.exists():
-        clean_default.write_text(DEFAULT_CONTENT, encoding="utf-8")
+def render_toml(data: dict) -> str:
+    lines = []
+    for key, values in data.items():
+        lines.append(f"{key} = [")
+        for v in values:
+            lines.append(f'    "{v}",')
+        lines.append("]")
+        lines.append("")
+    return "\n".join(lines)
 
-    if not clean_user.exists():
-        clean_user.touch()
+def init_config_files(base_dir: Path) -> bool:
+    clean_ignore, clean_rules = get_clean_paths(base_dir)
+    config_dir = clean_rules.parent
+
+    created = False
+
+    if not config_dir.exists():
+        config_dir.mkdir(parents=True)
+        created = True
+
+    if not clean_rules.exists():
+        if not clean_rules.exists():
+            clean_rules.write_text(
+                render_toml(DEFAULT_RULES),
+                encoding="utf-8"
+            )
+            created = True
+
+    if not clean_ignore.exists():
+        clean_ignore.touch()
+        created = True
+
+    return created

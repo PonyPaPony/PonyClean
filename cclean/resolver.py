@@ -2,6 +2,7 @@ import fnmatch
 import os
 from pathlib import Path
 from .config import load_clean_config
+from .init import PROTECTED_DIRS
 
 def collect_clean_targets(base_dir: Path) -> list[Path]:
     config = load_clean_config(base_dir)
@@ -14,7 +15,8 @@ def collect_clean_targets(base_dir: Path) -> list[Path]:
 
         dirs[:] = [
             d for d in dirs
-            if should_descend(root_path / d, patterns)
+            if d not in PROTECTED_DIRS
+               and should_descend(root_path / d, patterns)
         ]
 
         for d in dirs:

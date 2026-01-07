@@ -1,25 +1,27 @@
-from cclean.init import ensure_config_files
+from cclean.init import init_config_files
 from cclean.paths import get_clean_paths
 
 
-def test_ensure_config_files_creates(tmp_path):
-    ensure_config_files(tmp_path)
+def test_init_creates_config(tmp_path):
+    created = init_config_files(tmp_path)
 
-    clean_default, clean_user = get_clean_paths(tmp_path)
+    clean_ignore, clean_rules = get_clean_paths(tmp_path)
 
-    assert clean_default.exists()
-    assert clean_user.exists()
-    assert "files" in clean_default.read_text()
+    assert created is True
+    assert clean_rules.exists()
+    assert clean_ignore.exists()
+    assert "files" in clean_rules.read_text()
 
 
-def test_ensure_config_files_no_overwrite(tmp_path):
-    clean_default, clean_user = get_clean_paths(tmp_path)
+def test_init_does_not_overwrite_existing(tmp_path):
+    clean_ignore, clean_rules = get_clean_paths(tmp_path)
 
-    clean_default.parent.mkdir(parents=True, exist_ok=True)
-    clean_default.write_text("keep")
-    clean_user.write_text("user")
+    clean_rules.parent.mkdir(parents=True, exist_ok=True)
+    clean_rules.write_text("keep")
+    clean_ignore.write_text("user")
 
-    ensure_config_files(tmp_path)
+    created = init_config_files(tmp_path)
 
-    assert clean_default.read_text() == "keep"
-    assert clean_user.read_text() == "user"
+    assert created is False
+    assert clean_rules.read_text() == "keep"
+    assert clean_ignore.read_text() == "user"

@@ -1,11 +1,14 @@
 import shutil
 from pathlib import Path
-from .paths import get_base_dir
 from .resolver import collect_clean_targets
+from .init import PROTECTED_DIRS
 
 def guard_clean(obj: Path, base_dir: Path):
     real_base = base_dir.resolve()
     real_obj = obj.resolve()
+
+    if obj.parts and obj.parts[0] in PROTECTED_DIRS:
+        raise RuntimeError(f"Refusing to clean protected path: {obj}")
 
     if real_base not in real_obj.parents and real_obj != real_base:
         raise RuntimeError(f"Опасный путь: {obj}")
