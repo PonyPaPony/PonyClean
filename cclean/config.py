@@ -19,16 +19,12 @@ def load_toml_if_valid(path: Path) -> dict | None:
 def load_clean_config(base_dir: Path) -> dict:
     clean_path, _ = get_clean_paths(base_dir)
 
-    if user := load_toml_if_valid(clean_path):
-        return user
+    user = load_toml_if_valid(clean_path)
+    return user if user is not None else DEFAULT_RULES
 
-    return DEFAULT_RULES
 
 def load_ignore_config(base_dir: Path) -> set[str]:
     _, ignore_path = get_clean_paths(base_dir)
 
     data = load_toml_if_valid(ignore_path)
-    if not data:
-        return set()
-
-    return set(data.get("paths", []))
+    return set(data.get("paths", [])) if data else set()

@@ -1,3 +1,5 @@
+[![PyPI version](https://badge.fury.io/py/ponyclean.svg)](https://pypi.org/project/ponyclean/)
+
 # CClean
 
 **CClean** — это CLI-утилита для автоматической очистки проекта от временных и мусорных файлов  

@@ -10,6 +10,7 @@ DEFAULT_RULES = {
         ".coverage",
         ".ponyinit",
         ".benchmarks",
+        "htmlcov",
     ]
 }
 
