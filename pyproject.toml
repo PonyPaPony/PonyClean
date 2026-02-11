@@ -1,5 +1,5 @@
 [project]
-name = "pony-clean"
+name = "pony-clean-cli"
 version = "0.3.0"
 description = "Simple and safe CLI tool for cleaning project junk files"
 readme = "README.md"

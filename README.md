@@ -1,4 +1,4 @@
-[![PyPI version](https://badge.fury.io/py/pony-clean.svg)](https://pypi.org/project/pony-clean/)
+[![PyPI version](https://badge.fury.io/py/pony-clean-cli.svg)](https://pypi.org/project/pony-clean-cli/)
 # PonyClean
 
 **PonyClean** — это CLI-утилита для автоматической очистки проекта от временных и мусорных файлов  
@@ -31,7 +31,7 @@ PonyClean никогда не удаляет:
 ## Установка
 
 ```bash
-pip install ponyclean
+pip install pony-clean-cli
 ```
 
 ## Запуск
