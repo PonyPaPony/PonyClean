@@ -34,8 +34,10 @@ Issues = "https://github.com/PonyPaPony/PonyClean/issues"
 [project.scripts]
 pony-clean = "pony_clean.main:cli"
 
-[tool.setuptools]
-packages = ["pony_clean"]
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["pony_clean*"]
+exclude = ["pony_clean.tests*"]
 
 [build-system]
 requires = ["setuptools>=61.0"]
