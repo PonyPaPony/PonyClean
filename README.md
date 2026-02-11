@@ -1,8 +1,7 @@
-[![PyPI version](https://badge.fury.io/py/ponyclean.svg)](https://pypi.org/project/ponyclean/)
+[![PyPI version](https://badge.fury.io/py/pony-clean.svg)](https://pypi.org/project/pony-clean/)
+# PonyClean
 
-# CClean
-
-**CClean** — это CLI-утилита для автоматической очистки проекта от временных и мусорных файлов  
+**PonyClean** — это CLI-утилита для автоматической очистки проекта от временных и мусорных файлов  
 (кеши, артефакты тестов, байткод Python и т.п.).
 
 Инструмент ориентирован на **безопасную очистку**:
@@ -31,30 +30,35 @@ PonyClean никогда не удаляет:
 
 ## Установка
 
-```text
-При первом запуске утилита создаст data/clean_default.toml и data/clean_user.toml
-в корне проекта (или в --root)
-```
-
 ```bash
 pip install ponyclean
 ```
 
 ## Запуск
 ```bash
-cclean run
+pony-clean clean
 ```
 
 ## Примеры
 ```bash
-cclean run
-cclean run --root /path/to/project
-cclean run --dry-run
+pony-clean clean
+pony-clean clean --root /path/to/project
+pony-clean clean --dry-run
 ```
 
 ## Конфигурация
+
+```text
+Перед первым использованием рекомендуется инициализировать конфигурацию
+```
+
+```bash
+pony-clean init  # Создает конфиги
+```
+### После инициализации будут созданы файлы:
 ```yaml
-data/clean_user.toml
+.ponyclean/clean.toml      # правила очистки
+.ponyclean/protected.toml  # защищённые пути
 ```
 
 ## Формат
@@ -70,4 +74,4 @@ files = [
 MIT
 
 ## VERSION
-0.2.2
+0.3.0

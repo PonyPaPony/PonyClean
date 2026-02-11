@@ -4,7 +4,30 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project follows [Semantic Versioning](https://semver.org/).
+---
 
+## [0.3.0] – 2026-02-11
+
+This release continues development previously published under a different package name.
+
+### Added
+- Stable public API for cleanup operations.
+- Improved reporting of matched and removed targets.
+- Clear separation between dry-run and execution modes.
+
+### Changed
+- Major internal refactor to improve maintainability and safety.
+- Cleanup discovery and validation logic rewritten for better correctness.
+- CLI command name standardized as `pony-clean`.
+
+### Fixed
+- Multiple edge cases in cleanup target discovery.
+- Inconsistent behavior when configuration files were partially present.
+- Safety checks around protected and nested paths.
+
+### Security
+- Strengthened guarantees against destructive operations outside the project root.
+- Additional validation for protected directories and unsafe paths.
 ---
 
 ## [0.2.1] - 2026-01-07
