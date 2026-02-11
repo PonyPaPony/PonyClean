@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project follows [Semantic Versioning](https://semver.org/).
 ---
 
+## [0.3.2] - 2026-02-11
+### Fixed
+- Fixed packaging metadata
+- Fixed version resolution in CLI (--version)
+- Declared runtime dependencies in pyproject.toml
+
 ## [0.3.0] – 2026-02-11
 
 This release continues development previously published under a different package name.

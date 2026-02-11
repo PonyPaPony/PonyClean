@@ -7,7 +7,7 @@ from pony_clean.services.writer import print_success, print_info
 
 
 @click.group()
-@click.version_option(package_name="pony-clean")
+@click.version_option(package_name="pony-clean-cli")
 def cli():
     """Clean project trash"""
     pass
